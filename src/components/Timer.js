@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { reset, stop, tick, start } from "../actions/clockActions";
+import { reset, stop, start, timeout } from "../actions/clockActions";
 
 class Timer extends Component {
 	formatToClock = () => {
@@ -13,28 +13,13 @@ class Timer extends Component {
 		return { minutes, seconds };
 	};
 
-	timeout = () => {
-		const { timeLeft, stop } = this.props;
-		if (timeLeft <= 0) {
-			stop();
-		}
-	};
-
 	render() {
-		const {
-			timeLeft,
-			reset,
-			stop,
-			tick,
-			start,
-			isPaused,
-			isBreak
-		} = this.props;
+		const { reset, isPaused, start, stop, isBreak } = this.props;
 		let { minutes, seconds } = this.formatToClock();
 		return (
 			<div className="mx-auto">
 				<h1 id="timer-label" className="display-3 text-center">
-					Timer
+					{isBreak ? "Break" : "Session"}
 				</h1>
 				<h1 id="time-left" className="display-1 text-center">
 					{minutes}:{seconds}
@@ -70,8 +55,8 @@ Timer.propTypes = {
 	isPaused: PropTypes.bool.isRequired,
 	isBreak: PropTypes.bool.isRequired,
 	stop: PropTypes.func.isRequired,
-	tick: PropTypes.func.isRequired,
-	start: PropTypes.func.isRequired
+	start: PropTypes.func.isRequired,
+	timeout: PropTypes.func.isRequired
 };
 
 const mapState = state => ({
@@ -83,8 +68,8 @@ const mapState = state => ({
 const mapDispatch = {
 	reset,
 	stop,
-	tick,
-	start
+	start,
+	timeout
 };
 
 export default connect(

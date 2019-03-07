@@ -9,7 +9,7 @@ class Session extends Component {
 		return (
 			<div className="mx-auto">
 				<div className="row">
-					<h1 id="break-label" className="display-4">
+					<h1 id="session-label" className="display-4">
 						Session Length
 					</h1>
 				</div>

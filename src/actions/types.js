@@ -13,3 +13,7 @@ export const TOGGLE_PAUSE = "TOGGLE_PAUSE";
 export const TIMER_TOGGLE = "TIMER_TOGGLE";
 
 export const TIMER_TICK = "TIMER_TICK";
+
+export const TIMEOUT_SESSION = "TIMEOUT_SESSION";
+
+export const TIMEOUT_BREAK = "TIMEOUT_BREAK";

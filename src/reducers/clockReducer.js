@@ -5,7 +5,9 @@ import {
 	DECREMENT_SESSION,
 	RESET,
 	TIMER_TOGGLE,
-	TIMER_TICK
+	TIMER_TICK,
+	TIMEOUT_SESSION,
+	TIMEOUT_BREAK
 } from "../actions/types";
 
 const initialState = {
@@ -48,6 +50,7 @@ export default function(state = initialState, action) {
 			};
 		case RESET:
 			return initialState;
+
 		case TIMER_TOGGLE:
 			return {
 				...state,
@@ -57,6 +60,18 @@ export default function(state = initialState, action) {
 			return {
 				...state,
 				timeLeft: state.timeLeft - 1
+			};
+		case TIMEOUT_SESSION:
+			return {
+				...state,
+				timeLeft: state.breakLength * 60 + 1,
+				isBreak: true
+			};
+		case TIMEOUT_BREAK:
+			return {
+				...state,
+				timeLeft: state.sessionLength * 60 + 1,
+				isBreak: false
 			};
 		default:
 			return state;
