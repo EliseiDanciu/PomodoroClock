@@ -5,7 +5,12 @@ import { incrementBreak, decrementBreak } from "../actions/clockActions";
 
 class Break extends Component {
 	render() {
-		const { breakLength, incrementBreak, decrementBreak } = this.props;
+		const {
+			breakLength,
+			incrementBreak,
+			decrementBreak,
+			isPaused
+		} = this.props;
 		return (
 			<div className="mx-auto">
 				<div className="row">
@@ -19,6 +24,7 @@ class Break extends Component {
 							className="btn btn-lg btn-outline-dark"
 							id="break-decrement"
 							onClick={decrementBreak}
+							disabled={!isPaused}
 						>
 							<i className="fas fa-minus" />
 						</button>
@@ -33,6 +39,7 @@ class Break extends Component {
 							className="btn btn-lg btn-outline-dark"
 							id="break-increment"
 							onClick={incrementBreak}
+							disabled={!isPaused}
 						>
 							<i className="fas fa-plus" />
 						</button>
@@ -45,10 +52,14 @@ class Break extends Component {
 
 Break.propTypes = {
 	incrementBreak: PropTypes.func.isRequired,
-	decrementBreak: PropTypes.func.isRequired
+	decrementBreak: PropTypes.func.isRequired,
+	isPaused: PropTypes.bool.isRequired
 };
 
-const mapState = state => ({ breakLength: state.clock.breakLength });
+const mapState = state => ({
+	breakLength: state.clock.breakLength,
+	isPaused: state.clock.isPaused
+});
 const mapDispatch = {
 	incrementBreak,
 	decrementBreak

@@ -16,8 +16,10 @@ class Timer extends Component {
 	render() {
 		const { reset, isPaused, start, stop, isBreak } = this.props;
 		let { minutes, seconds } = this.formatToClock();
+		let alarm;
 		return (
 			<div className="mx-auto">
+				<audio id="beep" preload="auto" src="https://goo.gl/65cBl1" />
 				<h1 id="timer-label" className="display-3 text-center">
 					{isBreak ? "Break" : "Session"}
 				</h1>
@@ -28,7 +30,7 @@ class Timer extends Component {
 					<button
 						className="btn btn-lg btn-success w-75"
 						id="start_stop"
-						onClick={isPaused ? start : stop}
+						onClick={isPaused ? start.bind(this, alarm) : stop}
 					>
 						{isPaused ? (
 							<i className="fas fa-play" />

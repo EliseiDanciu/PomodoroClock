@@ -18,12 +18,16 @@ export const incrementSession = () => ({ type: INCREMENT_SESSION });
 
 export const decrementSession = () => ({ type: DECREMENT_SESSION });
 
+let timer = null;
+
 export const reset = () => dispatch => {
+	const alarm = document.getElementById("beep");
+	alarm.pause();
+	alarm.currentTime = 0;
 	dispatch(stop());
 	dispatch({ type: RESET });
 };
 
-let timer = null;
 export const start = () => dispatch => {
 	clearInterval(timer);
 
@@ -35,11 +39,14 @@ export const start = () => dispatch => {
 };
 
 export const timeout = () => (dispatch, getState) => {
+	const alarm = document.getElementById("beep");
 	let { timeLeft, isBreak } = getState().clock;
 	if (timeLeft < 1) {
 		if (isBreak) {
+			alarm.play();
 			dispatch({ type: TIMEOUT_BREAK });
 		} else {
+			alarm.play();
 			dispatch({ type: TIMEOUT_SESSION });
 		}
 	}

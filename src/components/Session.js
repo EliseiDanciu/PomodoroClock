@@ -5,7 +5,12 @@ import { incrementSession, decrementSession } from "../actions/clockActions";
 
 class Session extends Component {
 	render() {
-		const { sessionLength, incrementSession, decrementSession } = this.props;
+		const {
+			sessionLength,
+			incrementSession,
+			decrementSession,
+			isPaused
+		} = this.props;
 		return (
 			<div className="mx-auto">
 				<div className="row">
@@ -19,6 +24,7 @@ class Session extends Component {
 							className="btn btn-lg btn-outline-dark"
 							id="session-decrement"
 							onClick={decrementSession}
+							disabled={!isPaused}
 						>
 							<i className="fas fa-minus" />
 						</button>
@@ -33,6 +39,7 @@ class Session extends Component {
 							className="btn btn-lg btn-outline-dark"
 							id="session-increment"
 							onClick={incrementSession}
+							disabled={!isPaused}
 						>
 							<i className="fas fa-plus" />
 						</button>
@@ -46,10 +53,14 @@ class Session extends Component {
 Session.propTypes = {
 	incrementSession: PropTypes.func.isRequired,
 	decrementSession: PropTypes.func.isRequired,
-	sessionLength: PropTypes.number.isRequired
+	sessionLength: PropTypes.number.isRequired,
+	isPaused: PropTypes.bool.isRequired
 };
 
-const mapState = state => ({ sessionLength: state.clock.sessionLength });
+const mapState = state => ({
+	sessionLength: state.clock.sessionLength,
+	isPaused: state.clock.isPaused
+});
 const mapDispatch = {
 	incrementSession,
 	decrementSession
